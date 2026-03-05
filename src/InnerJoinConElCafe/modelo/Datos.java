@@ -1,13 +1,10 @@
 package InnerJoinConElCafe.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Datos {
 
-    private List<Cliente> listaClientes;
-    private List<Articulo> listaArticulos;
-    private List<Pedido> listaPedidos;
+    private Lista<Cliente> listaClientes;
+    private Lista<Articulo> listaArticulos;
+    private Lista<Pedido> listaPedidos;
 
     @Override
     public String toString() {
@@ -19,33 +16,27 @@ public class Datos {
     }
 
     public Datos() {
-        this.listaClientes = new ArrayList<>();
-        this.listaArticulos = new ArrayList<>();
-        this.listaPedidos = new ArrayList<>();
+        this.listaClientes = new Lista<>();
+        this.listaArticulos = new Lista<>();
+        this.listaPedidos = new Lista<>();
     }
 
-    public List<Cliente> getListaClientes() {
-        return listaClientes;
+    // Getters
+    public Lista<Articulo> getListaArticulos() { return listaArticulos; }
+    public Lista<Cliente> getListaClientes() { return listaClientes; }
+    public Lista<Pedido> getListaPedidos() { return listaPedidos; }
+
+    // Métodos para interactuar con las listas genéricas
+    public void addArticulo(Articulo a) {
+        listaArticulos.añadir(a);
     }
 
-    public void setListaClientes(List<Cliente> listaClientes) {
-        this.listaClientes = listaClientes;
+    public void addCliente(Cliente c) {
+        listaClientes.añadir(c);
     }
 
-    public List<Articulo> getListaArticulos() {
-        return listaArticulos;
-    }
-
-    public void setListaArticulos(List<Articulo> listaArticulos) {
-        this.listaArticulos = listaArticulos;
-    }
-
-    public List<Pedido> getListaPedidos() {
-        return listaPedidos;
-    }
-
-    public void setListaPedidos(List<Pedido> listaPedidos) {
-        this.listaPedidos = listaPedidos;
+    public void addPedido(Pedido p) {
+        listaPedidos.añadir(p);
     }
 }
 
