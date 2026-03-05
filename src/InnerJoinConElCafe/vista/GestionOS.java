@@ -27,6 +27,7 @@ public class GestionOS {
             System.out.println("4. Mostrar Clientes");
             System.out.println("5. Añadir Pedido");
             System.out.println("6. Mostrar Pedidos");
+            System.out.println("7. Cancelar Pedido");
             System.out.println("0. Salir");
             opcion = pedirOpcion();
             switch (opcion) {
@@ -47,6 +48,9 @@ public class GestionOS {
                     break;
                 case '6':
                     mostrarPedidos();
+                    break;
+                case '7':
+                    eliminarPedido();
                     break;
                 case '0':
                     salir = true;
@@ -192,5 +196,24 @@ public class GestionOS {
             }
         }
         System.out.println("==========================================\n");
+    }
+
+    private void eliminarPedido() {
+        System.out.println("\n--- CANCELACIÓN DE PEDIDO ---");
+        System.out.print("Introduce el número del pedido a eliminar: ");
+    
+        // Validamos que sea un número para evitar que el programa explote antes de llegar al controlador
+        try {
+            int numPedido = Integer.parseInt(teclado.nextLine());
+        
+            // Llamamos al controlador
+            Resultado<String> res = controlador.cancelarPedido(numPedido);
+        
+            // Mostramos el mensaje (sea de éxito o el de PedidoException)
+            System.out.println("\n>> RESULTADO: " + res.getMensaje());
+        
+        } catch (NumberFormatException e) {
+            System.out.println("\n>> ERROR: Debes introducir un número de pedido válido.");
+        }
     }
 }

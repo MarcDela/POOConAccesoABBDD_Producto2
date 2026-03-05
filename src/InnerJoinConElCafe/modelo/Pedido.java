@@ -2,6 +2,8 @@ package InnerJoinConElCafe.modelo;
 
 import java.time.LocalDateTime;
 
+import InnerJoinConElCafe.excepciones.PedidoException;
+
 public class Pedido {
 
     private int numeroPedido;
@@ -42,9 +44,10 @@ public class Pedido {
         return ahora.isBefore(momentoEnvio);
     }
 
-    public void  cancelar() throws Exception{
+    public void cancelar() throws PedidoException { 
         if(!puedeCancelarse()){
-            throw new Exception("El pedido no puede cancelarse. Tiempo insuficiente");
+            // Lanzamos la excepcion específica
+            throw new PedidoException("El pedido no puede cancelarse. Tiempo insuficiente");
         }
     }
 
