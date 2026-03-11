@@ -1,16 +1,19 @@
+package InnerJoinConElCafe.modelo;
+
 import java.time.LocalDateTime;
 
 public class Pedido {
 
     private int numeroPedido;
-    private int cantidad;
-    private LocalDateTime fechaHora;
     private Cliente cliente;
     private Articulo articulo;
+    private int cantidad;
+    private LocalDateTime fechaHora;
+
 
     @Override
     public String toString() {
-        return "Pedido{" +
+        return "InnerJoinConElCafe.modelo.Pedido{" +
                 "numeroPedido=" + numeroPedido +
                 ", cantidad=" + cantidad +
                 ", fechaHora=" + fechaHora +
@@ -19,12 +22,12 @@ public class Pedido {
                 '}';
     }
 
-    public Pedido(int numeroPedido, int cantidad, LocalDateTime fechaHora, Articulo articulo, Cliente cliente) {
+    public Pedido(int numeroPedido, Cliente cliente, Articulo articulo, int cantidad, LocalDateTime fechaHora) {
         this.numeroPedido = numeroPedido;
-        this.cantidad = cantidad;
-        this.fechaHora = fechaHora;
         this.cliente = cliente;
         this.articulo = articulo;
+        this.cantidad = cantidad;
+        this.fechaHora = fechaHora;
     }
 
     public double calcularPrecio(){

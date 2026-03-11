@@ -1,3 +1,5 @@
+package InnerJoinConElCafe.modelo;
+
 public class ClienteEstandar extends Cliente {
 
 

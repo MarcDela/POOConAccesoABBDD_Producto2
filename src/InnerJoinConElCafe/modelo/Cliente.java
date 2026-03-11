@@ -1,3 +1,5 @@
+package InnerJoinConElCafe.modelo;
+
 public abstract class Cliente {
 
     protected String nombre;
@@ -14,7 +16,7 @@ public abstract class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "InnerJoinConElCafe.modelo.Cliente{" +
                 "nombre='" + nombre + '\'' +
                 ", domicilio='" + domicilio + '\'' +
                 ", nif='" + nif + '\'' +
