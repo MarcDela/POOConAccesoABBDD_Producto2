@@ -1,3 +1,5 @@
+package InnerJoinConElCafe.modelo;
+
 public class Articulo {
 
     private String codigo;
@@ -16,7 +18,7 @@ public class Articulo {
 
     @Override
     public String toString() {
-        return "Articulo{" +
+        return "InnerJoinConElCafe.modelo.Articulo{" +
                 "codigo='" + codigo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precioVenta=" + precioVenta +
