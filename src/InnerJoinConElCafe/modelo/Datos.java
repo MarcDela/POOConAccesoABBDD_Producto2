@@ -98,7 +98,17 @@ public class Datos {
         }
         return pedidosEnviados;
     }
+    public Articulo getArticulo(String codigo) {
+        return articulos.get(codigo);
+    }
 
+    public Cliente getCliente(String email) {
+        return clientes.get(email);
+    }
+
+    public Pedido getPedido(int numeroPedido) {
+        return pedidos.get(numeroPedido);
+    }
 
 
     @Override

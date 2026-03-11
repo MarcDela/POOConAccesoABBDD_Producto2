@@ -54,5 +54,15 @@ public class Controlador {
         return datos.mostrarPedidosEnviados();
     }
 
+    public Articulo getArticulo(String codigo) {
+        return datos.getArticulo(codigo);
+    }
 
+    public Cliente getCliente(String email) {
+        return datos.getCliente(email);
+    }
+
+    public Pedido getPedido(int numeroPedido) {
+        return datos.getPedido(numeroPedido);
+    }
 }

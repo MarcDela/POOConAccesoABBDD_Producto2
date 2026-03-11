@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Vista {
 
-    private Controlador controlador;
-    private Scanner scanner;
+    private final Controlador controlador;
+    private final Scanner scanner;
 
     public Vista(){
         this.controlador = new Controlador();
@@ -90,9 +90,7 @@ public class Vista {
         try {
             controlador.eliminarPedido(numeroPedido);
             System.out.println("Pedido eliminado correctamente.");
-        } catch (PedidoNoExisteException e) {
-            System.out.println(e.getMessage());
-        } catch (PedidoNoCancelableException e) {
+        } catch (PedidoNoExisteException | PedidoNoCancelableException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -106,13 +104,51 @@ public class Vista {
         System.out.print("Cantidad: ");
         int cantidad = scanner.nextInt();
 
-        Cliente cliente = new ClienteEstandar(emailCliente, "","", emailCliente);
-        Articulo articulo = new Articulo(codigoArticulo,"",0,0,0);
-        Pedido pedido = new Pedido(numeroPedido,cliente,articulo,cantidad, LocalDateTime.now());
+        Articulo articulo = controlador.getArticulo(codigoArticulo);
+        if (articulo == null) {
+            System.out.println("El artículo no existe.");
+            return;
+        }
+
+        Cliente cliente = controlador.getCliente(emailCliente);
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado. Introduce sus datos:");
+            System.out.print("Nombre: ");
+            String nombre = scanner.next();
+            System.out.print("Domicilio: ");
+            String domicilio = scanner.next();
+            System.out.print("NIF: ");
+            String nif = scanner.next();
+
+            int tipo = 0;
+            while (tipo != 1 && tipo != 2) {
+                System.out.println("Tipo de cliente:");
+                System.out.println("1. Estándar");
+                System.out.println("2. Premium");
+                tipo = scanner.nextInt();
+                if (tipo != 1 && tipo != 2) {
+                    System.out.println("Opción no válida, introduce 1 o 2.");
+                }
+            }
+
+            try {
+                if (tipo == 1) {
+                    cliente = new ClienteEstandar(nombre, domicilio, nif, emailCliente);
+                } else {
+                    cliente = new ClientePremium(nombre, domicilio, nif, emailCliente);
+                }
+                controlador.addCliente(cliente);
+            } catch (ClienteYaExisteException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        }
+
+        Pedido pedido = new Pedido(numeroPedido, cliente, articulo, cantidad, LocalDateTime.now());
 
         try {
             controlador.addPedido(pedido);
-            System.out.println("Pedido añadido correctamente");
+            System.out.println("Pedido añadido correctamente.");
         } catch (ArticuloNoExisteException e) {
             System.out.println(e.getMessage());
         }
@@ -182,26 +218,29 @@ public class Vista {
         String nif = scanner.next();
         System.out.print("Email: ");
         String email = scanner.next();
-        System.out.println("Tipo de cliente:");
-        System.out.println("1. Estándar");
-        System.out.println("2. Premium");
-        System.out.print("Elige una opción: ");
-        int tipo = scanner.nextInt();
-
-        try{
-            if(tipo == 1){
-                controlador.addCliente(new ClienteEstandar(nombre, domicilio, nif, email));
-                System.out.println("Cliente añadido correctamente.");
-            }else if (tipo == 2){
-                controlador.addCliente(new ClientePremium(nombre, domicilio, nif, email));
-                System.out.println("Cliente añadido correctamente.");
-            } else {
-                System.out.println("Cliente no válido.");
+        int tipo = 0;
+        while (tipo != 1 && tipo != 2) {
+            System.out.println("Tipo de cliente:");
+            System.out.println("1. Estándar");
+            System.out.println("2. Premium");
+            tipo = scanner.nextInt();
+            if (tipo != 1 && tipo != 2) {
+                System.out.println("Opción no válida, introduce 1 o 2.");
             }
-        }catch (ClienteYaExisteException e){
-            System.out.println(e.getMessage());
         }
 
+        try {
+            Cliente cliente;
+            if (tipo == 1) {
+                cliente = new ClienteEstandar(nombre, domicilio, nif, email);
+            } else {
+                cliente = new ClientePremium(nombre, domicilio, nif, email);
+            }
+            controlador.addCliente(cliente);
+            System.out.println("Cliente añadido correctamente.");
+        } catch (ClienteYaExisteException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void menuArticulos() {
