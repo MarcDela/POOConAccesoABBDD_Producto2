@@ -33,10 +33,10 @@ public class Pedido {
 
     public double calcularPrecio() {
         double precioBase = articulo.getPrecioVenta() * cantidad;
-        double precioFinalProductos = cliente.aplicarDescuento(precioBase);
-        double envio = articulo.getGastosEnvio() * cantidad; 
+        double envioBase = articulo.getGastosEnvio() * cantidad;
+        double envioConDescuento = cliente.aplicarDescuento(envioBase);
     
-        return precioFinalProductos + envio;
+        return precioBase + envioConDescuento;
     }
 
     public boolean puedeCancelarse(){
