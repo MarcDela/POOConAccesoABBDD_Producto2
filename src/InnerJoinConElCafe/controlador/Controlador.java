@@ -102,5 +102,25 @@ public class Controlador {
             }
         }
     }
+
+    //Se crea un metodo para obener el cliente por su identificador (email)
+    public Cliente getClientePorEmail(String emailP) {
+        for (Cliente c : datos.getListaClientes()) {
+            if (c.getEmail().equalsIgnoreCase(emailP)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    //Se crea un metodo para obener el articulo por su identificador (codigo)
+    public Articulo getArticuloPorCodigo(String codigoP) {
+        for (Articulo a : datos.getListaArticulos()) {
+            if (a.getCodigo().equalsIgnoreCase(codigoP)) {
+                return a;
+            }
+        }
+        return null;
+    }
 }
+
 
