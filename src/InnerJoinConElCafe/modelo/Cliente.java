@@ -13,10 +13,6 @@ public abstract class Cliente {
         this.nif = nif;
         this.email = email;
     }
-
-    public double aplicarDescuento(double precioBase) {
-        return precioBase; // El cliente estándar devuelve el precio tal cual
-    }
         
     @Override
     public String toString() {
@@ -61,6 +57,10 @@ public abstract class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public double aplicarDescuento(double precioBase) {
+        return precioBase; // El cliente estándar devuelve el precio tal cual
     }
 
 }

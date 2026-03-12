@@ -57,6 +57,9 @@ public class GestionOS {
                 case '0':
                     salir = true;
                     break;
+                default:
+                    System.out.println("Opcion no valida. Selecciona de nuevo.");
+                    break;
             }
         } while (!salir);
     }
@@ -118,14 +121,16 @@ public class GestionOS {
         String email = teclado.nextLine();
 
         //Hasta que no se selecciona 1 o 2, no sale del bucle
-        int seleccion = 0;
         int tipo = 0;
-        while (seleccion < 1 || seleccion > 2){
+        do {
             System.out.println("Tipo de cliente (1. Estándar / 2. Premium):");
             tipo = teclado.nextInt();
             teclado.nextLine(); //Limpieza de buffer
-            seleccion = tipo;
-        }
+            if(tipo < 1 || tipo > 2){
+                System.out.println("Opcion no valida.");
+            }
+            
+        } while (tipo < 1 || tipo > 2);
 
         // Enviamos al controlador el 'tipo' para que él decida qué objeto crear
         Resultado<String> res = controlador.añadirCliente(nombre, domicilio, nif, email, tipo);
@@ -161,7 +166,7 @@ public class GestionOS {
             } else { return; }
 
         } catch (NumberFormatException e) {
-            System.out.println("Error: Debes introducir un número válido (1, 2 o 3).");
+            System.out.println("Error: Debes introducir un número válido (1, 2, 3 o 0).");
         }
     }
 
@@ -259,7 +264,7 @@ public class GestionOS {
         System.out.println("\n--- CANCELACIÓN DE PEDIDO ---");
         System.out.print("Introduce el número del pedido a eliminar: ");
     
-        // Validamos que sea un número para evitar que el programa explote antes de llegar al controlador
+        // Validamos que sea un número
         try {
             int numPedido = Integer.parseInt(teclado.nextLine());
         

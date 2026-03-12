@@ -23,6 +23,20 @@ public class PruebaTest {
     }
 
     @Test
+    public void calcularPrecioClienteEstandar() {
+
+        /* Lógica: (10 * 2) + (5 * 2) = 30 */ 
+        //arrange
+        Articulo articulo = new Articulo ("Arti-1", "Camiseta", 10.0, 5.0, 60);
+        Cliente cliente = new ClienteEstandar("Juan", "C. Calabria", "47121189L", "Juan_ito@gmail.com");
+        Pedido pedido = new Pedido (1, 2, LocalDateTime.now(),articulo, cliente);
+        //act
+        double precio = pedido.calcularPrecio();
+        //assert
+        assertEquals(30.0, precio, 0.01);
+    }
+
+    @Test
     void testCalculoPrecioPremiumConDescuento() {
         // Lógica: 10.0 + (5.0 * 0.8) = 14.0
         Pedido pedido = new Pedido(1, 1, LocalDateTime.now(), cafe, clientePremium);
@@ -30,6 +44,17 @@ public class PruebaTest {
         
         assertEquals(esperado, pedido.calcularPrecio(), 0.01, 
             "El descuento del 20% sobre el precio del envio no se ha calculado bien.");
+    }
+
+    @Test
+    public void siPuedeCancelarse() {
+        // Arrange - tiempo de preparación 60 minutos, pedido hecho ahora
+        Articulo articulo = new Articulo("Arti-1", "Camiseta", 10.0, 5.0, 60);
+        Cliente cliente = new ClienteEstandar("Juan", "C. Calabria", "47121189L", "Juan_ito@gmail.com");
+        Pedido pedido = new Pedido(1, 2, LocalDateTime.now(), articulo, cliente);
+
+        // Act & Assert
+        assertTrue(pedido.puedeCancelarse());
     }
 
     @Test
@@ -51,4 +76,5 @@ public class PruebaTest {
         assertTrue(email.contains("@") && email.contains("."), 
             "El formato del email del cliente no es válido.");
     }
+
 }

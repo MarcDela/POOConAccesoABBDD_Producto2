@@ -148,6 +148,11 @@ public class Controlador {
     public Resultado<String> añadirPedido(int num, String nif, String codigo, int cant) {
         try {
             // VALIDACIÓN DE DATOS
+            for (Pedido p : datos.getListaPedidos().getArrayList()) {
+                if (p.getNumeroPedido() == num) {
+                    throw new PedidoException("Error: Ya existe un pedido con el número " + num + ".");
+                }
+            }
             if (cant <= 0) {
                 throw new ValidacionDatosException("La cantidad del pedido debe ser al menos de 1 unidad.");
             }
@@ -160,7 +165,7 @@ public class Controlador {
         
             return new Resultado<>(String.valueOf(num), "Pedido creado con éxito.");
 
-        } catch (DatoNoEncontradoException | ValidacionDatosException e) {
+        } catch (DatoNoEncontradoException | ValidacionDatosException | PedidoException e) {
             return new Resultado<>(e.getMessage());
         } catch (Exception e) {
             return new Resultado<>("Error: " + e.getMessage());
